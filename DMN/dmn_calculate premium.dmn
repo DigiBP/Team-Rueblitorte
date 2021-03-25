@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_07nk9n6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <decision id="Decision_1uu8qhf" name="Decision 1">
+    <decisionTable id="DecisionTable_0y761k7">
+      <input id="Input_1" label="Identification number of Car" biodi:width="220.8000030517578">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>IdentificationnumberofCar</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0pmkyz9">
+          <text>"001","002","003"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_11ja7w8" label="Nationality" biodi:width="192">
+        <inputExpression id="LiteralExpression_03r15ka" typeRef="string">
+          <text>Nationality</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1a1sk9z">
+          <text>"Swiss","German","Albanian"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0yl8kek" label="Gender">
+        <inputExpression id="LiteralExpression_1p4yq87" typeRef="string">
+          <text>gender</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0vdyag6">
+          <text>"Female","Male"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0z09jep" label="Number of KM driven tsd  " biodi:width="192">
+        <inputExpression id="LiteralExpression_0o43e2v" typeRef="integer">
+          <text>NumberofKMdriventsd</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_16worar" label="Kind of Insurance">
+        <inputExpression id="LiteralExpression_1s2x7wh" typeRef="string">
+          <text>kindofinsurance</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1rg00t9">
+          <text>"full coverage","liability","partial coverage"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Premium amount in CHF" name="Premium" typeRef="string" biodi:width="312">
+        <outputValues id="UnaryTests_1fo8qrq">
+          <text>"900","1'200","1'800"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0ogadte">
+        <inputEntry id="UnaryTests_054jvq7">
+          <text>"001"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1crfacj">
+          <text>"Swiss"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wdin24">
+          <text>"Female"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18d6d31">
+          <text>&lt;30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k89qxv">
+          <text>"full coverage"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nibv1n">
+          <text>"1'200"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ng0y3c">
+        <inputEntry id="UnaryTests_1r927d4">
+          <text>"002"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1eu866b">
+          <text>"German"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17vvu9o">
+          <text>"Male"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_153t3k0">
+          <text>&lt;60</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hhe32t">
+          <text>"liability"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0l4uqs6">
+          <text>"900"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jizh4l">
+        <inputEntry id="UnaryTests_088rdua">
+          <text>"003"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16uxm0q">
+          <text>"Albanian"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a8vx3r">
+          <text>"Male"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1onyj83">
+          <text>&gt;60</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17r06hc">
+          <text>"partial coverage"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lbbc9d">
+          <text>"1'800"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_1uu8qhf">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
