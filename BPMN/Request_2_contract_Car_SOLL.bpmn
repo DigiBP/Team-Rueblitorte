@@ -2,7 +2,7 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1uqpt42" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
   <bpmn:collaboration id="Collaboration_1tyu924">
     <bpmn:documentation>Send information toUnderwriter</bpmn:documentation>
-    <bpmn:participant id="Participant_0b94270" name="Car insurance &#34;request to contract&#34;" processRef="Process_1crhg3c" />
+    <bpmn:participant id="Participant_0b94270" name="Car insurance &#34;request to contract1&#34;" processRef="Process_1crhg3c" />
     <bpmn:participant id="Participant_0kd835z" name="Customer" processRef="Process_12zzpyh" />
     <bpmn:messageFlow id="Flow_1ln7w2p" name="Web form" sourceRef="Participant_0kd835z" targetRef="StartEvent_1" />
     <bpmn:messageFlow id="Flow_1tzav9u" name="offering" sourceRef="Activity_1g6co4v" targetRef="Participant_0kd835z" />
