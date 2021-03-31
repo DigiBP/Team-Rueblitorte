@@ -65,7 +65,7 @@
       <bpmn:incoming>Flow_0393u5h</bpmn:incoming>
       <bpmn:outgoing>Flow_05eym7c</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1e5wxq3">
-        <bpmn:targetRef>DataStoreReference_1sy3uux</bpmn:targetRef>
+        <bpmn:targetRef>DataStoreReference_039vpp8</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_01s31a9" name="request  customer data">
@@ -468,8 +468,8 @@
         <di:waypoint x="1076" y="955" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1e5wxq3_di" bpmnElement="DataOutputAssociation_1e5wxq3">
-        <di:waypoint x="1019" y="630" />
-        <di:waypoint x="1091" y="955" />
+        <di:waypoint x="999" y="630" />
+        <di:waypoint x="880" y="1080" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_10q5xmh_di" bpmnElement="DataOutputAssociation_10q5xmh">
         <di:waypoint x="1162" y="630" />
