@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_07nk9n6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <decision id="Decision_0qijk0m" name="Private Liability">
+    <decisionTable id="DecisionTable_1pyihy8">
+      <input id="InputClause_1rnfllh" label="Deductible">
+        <inputExpression id="LiteralExpression_1j7w272" typeRef="integer">
+          <text>Deductible</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1yrk9ya" label="Sum Insured Mio">
+        <inputExpression id="LiteralExpression_12wutqm" typeRef="integer">
+          <text>SumInsuredMio</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1wwnbvs" label="Houshold " biodi:width="218">
+        <inputExpression id="LiteralExpression_03lszlf" typeRef="string">
+          <text>Houshold</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0rskznt">
+          <text>"single","multi person"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1bc6m5l" label="Form of housing">
+        <inputExpression id="LiteralExpression_1k6vvca" typeRef="string">
+          <text>Form of housing</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1obcxui">
+          <text>"Tenant","Owner"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1bojrn3" label="Length of insurance">
+        <inputExpression id="LiteralExpression_0d3qd5j" typeRef="integer">
+          <text>Lengthofinsurance</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_173hrui" label="Appclication questions">
+        <inputExpression id="LiteralExpression_0f0se3y" typeRef="boolean">
+          <text>Appclicationquestionspostitiv</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_06e9w0i" label="Price of Premium" name="Length of insurance" typeRef="integer" />
+      <rule id="DecisionRule_08d1bk9">
+        <inputEntry id="UnaryTests_026vsx8">
+          <text>500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0krasvm">
+          <text>5</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x61crq">
+          <text>single</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_046szmw">
+          <text>Owner</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1advqn1">
+          <text>3</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15prioj">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wx7eil">
+          <text>145</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ezn2nb">
+        <inputEntry id="UnaryTests_1m1ldgs">
+          <text>1000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cigs8m">
+          <text>10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08b427h">
+          <text>multi person</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nwbt8j">
+          <text>Tenant</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pprxks">
+          <text>2</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c6rfvu">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ycnxyw">
+          <text>159</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_1dc3h2o" dmnElementRef="Decision_0qijk0m">
+        <dc:Bounds height="80" width="180" x="480" y="180" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
