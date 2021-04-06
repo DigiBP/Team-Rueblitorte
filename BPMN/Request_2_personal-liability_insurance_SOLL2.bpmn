@@ -107,7 +107,7 @@
       <bpmn:timerEventDefinition id="TimerEventDefinition_1naygyb" />
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_0eoyttz" sourceRef="Event_11jtses" targetRef="Event_0xwpdal" />
-    <bpmn:endEvent id="Event_0xwpdal" name="Request cancled">
+    <bpmn:endEvent id="Event_0xwpdal" name="Request cancelled">
       <bpmn:incoming>Flow_0eoyttz</bpmn:incoming>
     </bpmn:endEvent>
   </bpmn:process>
@@ -241,7 +241,7 @@
       <bpmndi:BPMNShape id="Event_0xwpdal_di" bpmnElement="Event_0xwpdal">
         <dc:Bounds x="1412" y="452" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1389" y="495" width="82" height="14" />
+          <dc:Bounds x="1407" y="495" width="47" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0bbtwcq_di" bpmnElement="Event_11jtses">
