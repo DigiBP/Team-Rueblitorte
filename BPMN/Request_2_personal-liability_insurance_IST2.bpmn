@@ -73,7 +73,7 @@
     <bpmn:endEvent id="Event_0e16k1z" name="Request closed">
       <bpmn:incoming>Flow_1ludg30</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:endEvent id="Event_0vqihh0" name="Request cancled">
+    <bpmn:endEvent id="Event_0vqihh0" name="Request cancelled">
       <bpmn:incoming>Flow_060ntnq</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:receiveTask id="Activity_0pv5y2c" name="Receive signed offer">
@@ -218,7 +218,7 @@
       <bpmndi:BPMNShape id="Event_0vqihh0_di" bpmnElement="Event_0vqihh0">
         <dc:Bounds x="642" y="502" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="619" y="478" width="82" height="14" />
+          <dc:Bounds x="637" y="466" width="47" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_02cum5o_di" bpmnElement="Activity_0pv5y2c">
