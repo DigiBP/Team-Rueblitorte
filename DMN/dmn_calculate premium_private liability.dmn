@@ -17,12 +17,12 @@
           <text>Houshold</text>
         </inputExpression>
         <inputValues id="UnaryTests_0rskznt">
-          <text>"Single","Multi person"</text>
+          <text>"Single","Multi_person"</text>
         </inputValues>
       </input>
       <input id="InputClause_1bc6m5l" label="Form of housing">
         <inputExpression id="LiteralExpression_1k6vvca" typeRef="string">
-          <text>Formofhousing</text>
+          <text>FormOfHousing</text>
         </inputExpression>
         <inputValues id="UnaryTests_1obcxui">
           <text>"Tenant","Owner"</text>
@@ -30,12 +30,12 @@
       </input>
       <input id="InputClause_1bojrn3" label="Length of insurance">
         <inputExpression id="LiteralExpression_0d3qd5j" typeRef="integer">
-          <text>Lengthofinsurance</text>
+          <text>LengthOfInsurance</text>
         </inputExpression>
       </input>
       <input id="InputClause_173hrui" label="Application questions">
         <inputExpression id="LiteralExpression_0f0se3y" typeRef="boolean">
-          <text>Appclicationquestionspostitiv</text>
+          <text>AppclicationQuestionsPositiv</text>
         </inputExpression>
       </input>
       <output id="OutputClause_06e9w0i" label="Price of Premium" name="Length of insurance" typeRef="double" />
@@ -140,7 +140,7 @@
           <text>10</text>
         </inputEntry>
         <inputEntry id="UnaryTests_08b427h">
-          <text>"Multi person"</text>
+          <text>"Multi_person"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0nwbt8j">
           <text>"Tenant"</text>
@@ -176,6 +176,52 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_0qy0fcg">
           <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0z33oyv">
+        <inputEntry id="UnaryTests_148em73">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08scxbd">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_095fw8j">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06zqlrd">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pnm8j3">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i72p5c">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xl4rxk">
+          <text>-1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1g5mgr5">
+        <inputEntry id="UnaryTests_1aauhee">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1k18ryk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ua1bo6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lwznks">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1011tqn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n2ibeb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0im4zpt">
+          <text></text>
         </outputEntry>
       </rule>
     </decisionTable>
