@@ -16,7 +16,6 @@
   <bpmn:process id="Process_1crhg3c" isExecutable="true">
     <bpmn:laneSet id="LaneSet_1cykm21">
       <bpmn:lane id="Lane_1x7j7el">
-        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1qnudnq</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1beokbr</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0yur7zb</bpmn:flowNodeRef>
@@ -24,7 +23,6 @@
         <bpmn:flowNodeRef>Gateway_0x4ay0m</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0llpj7a</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0ipxbng</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0atfa9a</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_17cwf83</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1g6co4v</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0pv5y2c</bpmn:flowNodeRef>
@@ -41,18 +39,12 @@
         <bpmn:flowNodeRef>Event_11jtses</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0lxpaox</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_02k6xum</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0atfa9a</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_033wgvw</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0xi515m</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="StartEvent_1" name="Webform received" camunda:initiator="demouser">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="webform" label="webform?" type="boolean" defaultValue="true" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:outgoing>Flow_10ht0wk</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0hof5sa" messageRef="Message_0hh0o77" />
-    </bpmn:startEvent>
     <bpmn:parallelGateway id="Gateway_1qnudnq">
       <bpmn:incoming>Flow_16u7dfr</bpmn:incoming>
       <bpmn:outgoing>Flow_16lsead</bpmn:outgoing>
@@ -83,10 +75,6 @@
     <bpmn:userTask id="Activity_0ipxbng" name="Check customer entry">
       <bpmn:incoming>Flow_03twjay</bpmn:incoming>
       <bpmn:outgoing>Flow_01ox8am</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:userTask id="Activity_0atfa9a" name="Correct data">
-      <bpmn:incoming>Flow_0vx2a8y</bpmn:incoming>
-      <bpmn:outgoing>Flow_020vf3i</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="Activity_17cwf83" name="Contact customer">
       <bpmn:incoming>Flow_01ox8am</bpmn:incoming>
@@ -141,7 +129,6 @@
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_0eoyttz" sourceRef="Event_11jtses" targetRef="Event_0xwpdal" />
     <bpmn:sequenceFlow id="Flow_0f1lmi8" name="yes" sourceRef="Gateway_0x4ay0m" targetRef="Activity_0llpj7a" />
-    <bpmn:sequenceFlow id="Flow_10ht0wk" sourceRef="StartEvent_1" targetRef="Gateway_033wgvw" />
     <bpmn:sequenceFlow id="Flow_16lsead" sourceRef="Gateway_1qnudnq" targetRef="Activity_0yur7zb" />
     <bpmn:sequenceFlow id="Flow_01me3qa" sourceRef="Gateway_1qnudnq" targetRef="Activity_1beokbr" />
     <bpmn:sequenceFlow id="Flow_03twjay" name="no" sourceRef="Gateway_0x4ay0m" targetRef="Activity_0ipxbng" />
@@ -182,11 +169,30 @@
       <bpmn:outgoing>Flow_1eppq96</bpmn:outgoing>
     </bpmn:sendTask>
     <bpmn:task id="Activity_02k6xum" name="Test" />
+    <bpmn:sequenceFlow id="Flow_0ewwqyz" sourceRef="StartEvent_1" targetRef="Activity_0xi515m" />
+    <bpmn:userTask id="Activity_0atfa9a" name="Correct data">
+      <bpmn:incoming>Flow_0vx2a8y</bpmn:incoming>
+      <bpmn:outgoing>Flow_020vf3i</bpmn:outgoing>
+    </bpmn:userTask>
     <bpmn:exclusiveGateway id="Gateway_033wgvw">
-      <bpmn:incoming>Flow_10ht0wk</bpmn:incoming>
       <bpmn:incoming>Flow_020vf3i</bpmn:incoming>
+      <bpmn:incoming>Flow_00qncxn</bpmn:incoming>
       <bpmn:outgoing>Flow_16u7dfr</bpmn:outgoing>
     </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_00qncxn" sourceRef="Activity_0xi515m" targetRef="Gateway_033wgvw" />
+    <bpmn:startEvent id="StartEvent_1" name="Webform received" camunda:initiator="demouser">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="webform" label="webform?" type="boolean" defaultValue="true" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0ewwqyz</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0hof5sa" messageRef="Message_0hh0o77" />
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_0xi515m" name="Get webform">
+      <bpmn:incoming>Flow_0ewwqyz</bpmn:incoming>
+      <bpmn:outgoing>Flow_00qncxn</bpmn:outgoing>
+    </bpmn:task>
     <bpmn:textAnnotation id="TextAnnotation_086wehf">
       <bpmn:text>XLS-Liste erstellen mit Beiispieladressen (in Praxis: Post-Service)</bpmn:text>
     </bpmn:textAnnotation>
@@ -303,23 +309,21 @@
         <di:waypoint x="1952" y="350" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_16u7dfr_di" bpmnElement="Flow_16u7dfr">
-        <di:waypoint x="330" y="655" />
-        <di:waypoint x="330" y="692" />
-        <di:waypoint x="411" y="692" />
+        <di:waypoint x="411" y="655" />
         <di:waypoint x="411" y="715" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="363" y="674" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_020vf3i_di" bpmnElement="Flow_020vf3i">
-        <di:waypoint x="421" y="501" />
-        <di:waypoint x="421" y="557" />
-        <di:waypoint x="330" y="557" />
-        <di:waypoint x="330" y="605" />
+        <di:waypoint x="450" y="501" />
+        <di:waypoint x="450" y="557" />
+        <di:waypoint x="411" y="557" />
+        <di:waypoint x="411" y="605" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0vx2a8y_di" bpmnElement="Flow_0vx2a8y">
         <di:waypoint x="550" y="461" />
-        <di:waypoint x="471" y="461" />
+        <di:waypoint x="500" y="461" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_01ox8am_di" bpmnElement="Flow_01ox8am">
         <di:waypoint x="731" y="461" />
@@ -342,12 +346,6 @@
         <di:waypoint x="411" y="810" />
         <di:waypoint x="490" y="810" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_10ht0wk_di" bpmnElement="Flow_10ht0wk">
-        <di:waypoint x="248" y="644" />
-        <di:waypoint x="277" y="644" />
-        <di:waypoint x="277" y="630" />
-        <di:waypoint x="305" y="630" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0f1lmi8_di" bpmnElement="Flow_0f1lmi8">
         <di:waypoint x="781" y="765" />
         <di:waypoint x="781" y="920" />
@@ -361,12 +359,16 @@
         <di:waypoint x="1321" y="350" />
         <di:waypoint x="1952" y="350" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Event_1jcqas0_di" bpmnElement="StartEvent_1">
-        <dc:Bounds x="212" y="626" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="215" y="677" width="90" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0ewwqyz_di" bpmnElement="Flow_0ewwqyz">
+        <di:waypoint x="228" y="644" />
+        <di:waypoint x="260" y="644" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00qncxn_di" bpmnElement="Flow_00qncxn">
+        <di:waypoint x="360" y="644" />
+        <di:waypoint x="373" y="644" />
+        <di:waypoint x="373" y="630" />
+        <di:waypoint x="386" y="630" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Gateway_18oexlh_di" bpmnElement="Gateway_1qnudnq">
         <dc:Bounds x="386" y="715" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -390,9 +392,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0xgwkf6_di" bpmnElement="Activity_0ipxbng">
         <dc:Bounds x="731" y="421" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0u0sn6k_di" bpmnElement="Activity_0atfa9a">
-        <dc:Bounds x="371" y="421" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0ke7wci_di" bpmnElement="Activity_17cwf83">
         <dc:Bounds x="550" y="421" width="100" height="80" />
@@ -460,8 +459,20 @@
       <bpmndi:BPMNShape id="TextAnnotation_1o8xfcd_di" bpmnElement="TextAnnotation_1o8xfcd">
         <dc:Bounds x="640" y="610" width="99.99156545209178" height="39.13630229419703" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0u0sn6k_di" bpmnElement="Activity_0atfa9a">
+        <dc:Bounds x="400" y="421" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_033wgvw_di" bpmnElement="Gateway_033wgvw" isMarkerVisible="true">
-        <dc:Bounds x="305" y="605" width="50" height="50" />
+        <dc:Bounds x="386" y="605" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1jcqas0_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="192" y="626" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="205" y="583" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0xi515m_di" bpmnElement="Activity_0xi515m">
+        <dc:Bounds x="260" y="604" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0oz69c8_di" bpmnElement="Event_0lxpaox">
         <dc:Bounds x="1592" y="482" width="36" height="36" />
@@ -505,10 +516,10 @@
         <dc:Bounds x="160" y="80" width="1928" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ln7w2p_di" bpmnElement="Flow_1ln7w2p">
-        <di:waypoint x="230" y="140" />
-        <di:waypoint x="230" y="626" />
+        <di:waypoint x="210" y="140" />
+        <di:waypoint x="210" y="626" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="237" y="233" width="65" height="14" />
+          <dc:Bounds x="217" y="233" width="65" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1tzav9u_di" bpmnElement="Flow_1tzav9u">
