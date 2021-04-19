@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_03si2vj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <bpmn:process id="Process_0rsnt6c" isExecutable="true">
+    <bpmn:sequenceFlow id="Flow_04w54sg" sourceRef="StartEvent_1" targetRef="Activity_1c0npc0" />
+    <bpmn:endEvent id="Event_0z137g0">
+      <bpmn:incoming>Flow_0wuz57e</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0wuz57e" sourceRef="Activity_1c0npc0" targetRef="Event_0z137g0" />
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_04w54sg</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1kvx35e" messageRef="Message_1t9kymi" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_1c0npc0">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="location" label="location" type="string" />
+          <camunda:formField id="deductible" label="deductible" type="long" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_04w54sg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wuz57e</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmn:message id="Message_1t9kymi" name="privateliability" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0rsnt6c">
+      <bpmndi:BPMNEdge id="Flow_04w54sg_di" bpmnElement="Flow_04w54sg">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="240" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wuz57e_di" bpmnElement="Flow_0wuz57e">
+        <di:waypoint x="340" y="120" />
+        <di:waypoint x="392" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0z137g0_di" bpmnElement="Event_0z137g0">
+        <dc:Bounds x="392" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_14fxzk2_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1me5cfk_di" bpmnElement="Activity_1c0npc0">
+        <dc:Bounds x="240" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
