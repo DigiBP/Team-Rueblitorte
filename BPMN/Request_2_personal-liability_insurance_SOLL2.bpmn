@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1uqpt42" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1uqpt42" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
   <bpmn:collaboration id="Collaboration_1tyu924">
     <bpmn:documentation>Send information toUnderwriter</bpmn:documentation>
     <bpmn:participant id="Participant_0b94270" name="Personal Liability Insurance" processRef="Process_1crhg3c" />
@@ -17,7 +17,6 @@
     <bpmn:laneSet id="LaneSet_1cykm21">
       <bpmn:lane id="Lane_1x7j7el">
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_033wgvw</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1qnudnq</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1beokbr</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0yur7zb</bpmn:flowNodeRef>
@@ -42,17 +41,18 @@
         <bpmn:flowNodeRef>Event_11jtses</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0lxpaox</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_02k6xum</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_033wgvw</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1" name="Webform received">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="webform" label="webform?" type="boolean" defaultValue="true" />
+        </camunda:formData>
+      </bpmn:extensionElements>
       <bpmn:outgoing>Flow_10ht0wk</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0hof5sa" />
     </bpmn:startEvent>
-    <bpmn:exclusiveGateway id="Gateway_033wgvw">
-      <bpmn:incoming>Flow_10ht0wk</bpmn:incoming>
-      <bpmn:incoming>Flow_020vf3i</bpmn:incoming>
-      <bpmn:outgoing>Flow_16u7dfr</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:parallelGateway id="Gateway_1qnudnq">
       <bpmn:incoming>Flow_16u7dfr</bpmn:incoming>
       <bpmn:outgoing>Flow_16lsead</bpmn:outgoing>
@@ -76,7 +76,7 @@
       <bpmn:outgoing>Flow_03twjay</bpmn:outgoing>
       <bpmn:outgoing>Flow_0f1lmi8</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:businessRuleTask id="Activity_0llpj7a" name="Calculate premium">
+    <bpmn:businessRuleTask id="Activity_0llpj7a" name="Calculate premium" camunda:resultVariable="price" camunda:decisionRef="Definitions_07nk9n6" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_0f1lmi8</bpmn:incoming>
       <bpmn:outgoing>Flow_0bihg4h</bpmn:outgoing>
     </bpmn:businessRuleTask>
@@ -147,8 +147,12 @@
     <bpmn:sequenceFlow id="Flow_03twjay" name="no" sourceRef="Gateway_0x4ay0m" targetRef="Activity_0ipxbng" />
     <bpmn:sequenceFlow id="Flow_01ox8am" sourceRef="Activity_0ipxbng" targetRef="Activity_17cwf83" />
     <bpmn:sequenceFlow id="Flow_0vx2a8y" sourceRef="Activity_17cwf83" targetRef="Activity_0atfa9a" />
-    <bpmn:sequenceFlow id="Flow_020vf3i" sourceRef="Activity_0atfa9a" targetRef="Gateway_033wgvw" />
-    <bpmn:sequenceFlow id="Flow_16u7dfr" sourceRef="Gateway_033wgvw" targetRef="Gateway_1qnudnq" />
+    <bpmn:sequenceFlow id="Flow_020vf3i" sourceRef="Activity_0atfa9a" targetRef="Gateway_033wgvw">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_16u7dfr" name="Yes" sourceRef="Gateway_033wgvw" targetRef="Gateway_1qnudnq">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_13c075l" sourceRef="Event_050vio1" targetRef="Event_0xwpdal" />
     <bpmn:sequenceFlow id="Flow_0te7vc1" name="yes" sourceRef="Gateway_1wouvap" targetRef="Activity_0gfmrk7" />
     <bpmn:sequenceFlow id="Flow_0jtu5f0" sourceRef="Gateway_1xkprqh" targetRef="Activity_0403v3a" />
@@ -180,6 +184,11 @@
       <bpmn:outgoing>Flow_1eppq96</bpmn:outgoing>
     </bpmn:sendTask>
     <bpmn:task id="Activity_02k6xum" name="Test" />
+    <bpmn:exclusiveGateway id="Gateway_033wgvw">
+      <bpmn:incoming>Flow_10ht0wk</bpmn:incoming>
+      <bpmn:incoming>Flow_020vf3i</bpmn:incoming>
+      <bpmn:outgoing>Flow_16u7dfr</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
     <bpmn:textAnnotation id="TextAnnotation_086wehf">
       <bpmn:text>XLS-Liste erstellen mit Beiispieladressen (in Praxis: Post-Service)</bpmn:text>
     </bpmn:textAnnotation>
@@ -295,15 +304,19 @@
         <di:waypoint x="1952" y="350" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_16u7dfr_di" bpmnElement="Flow_16u7dfr">
-        <di:waypoint x="320" y="669" />
-        <di:waypoint x="320" y="740" />
-        <di:waypoint x="386" y="740" />
+        <di:waypoint x="330" y="655" />
+        <di:waypoint x="330" y="692" />
+        <di:waypoint x="411" y="692" />
+        <di:waypoint x="411" y="715" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="363" y="674" width="18" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_020vf3i_di" bpmnElement="Flow_020vf3i">
         <di:waypoint x="421" y="501" />
         <di:waypoint x="421" y="557" />
-        <di:waypoint x="320" y="557" />
-        <di:waypoint x="320" y="619" />
+        <di:waypoint x="330" y="557" />
+        <di:waypoint x="330" y="605" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0vx2a8y_di" bpmnElement="Flow_0vx2a8y">
         <di:waypoint x="550" y="461" />
@@ -332,7 +345,9 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_10ht0wk_di" bpmnElement="Flow_10ht0wk">
         <di:waypoint x="248" y="644" />
-        <di:waypoint x="295" y="644" />
+        <di:waypoint x="277" y="644" />
+        <di:waypoint x="277" y="630" />
+        <di:waypoint x="305" y="630" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0f1lmi8_di" bpmnElement="Flow_0f1lmi8">
         <di:waypoint x="781" y="765" />
@@ -352,9 +367,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="215" y="677" width="90" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_033wgvw_di" bpmnElement="Gateway_033wgvw" isMarkerVisible="true">
-        <dc:Bounds x="295" y="619" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_18oexlh_di" bpmnElement="Gateway_1qnudnq">
         <dc:Bounds x="386" y="715" width="50" height="50" />
@@ -431,6 +443,9 @@
       <bpmndi:BPMNShape id="Activity_0ykgmm4_di" bpmnElement="Activity_0gfmrk7">
         <dc:Bounds x="940" y="421" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02k6xum_di" bpmnElement="Activity_02k6xum">
+        <dc:Bounds x="240" y="930" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_086wehf_di" bpmnElement="TextAnnotation_086wehf">
         <dc:Bounds x="490" y="920" width="99.99156545209178" height="79.6221322537112" />
       </bpmndi:BPMNShape>
@@ -446,8 +461,8 @@
       <bpmndi:BPMNShape id="TextAnnotation_1o8xfcd_di" bpmnElement="TextAnnotation_1o8xfcd">
         <dc:Bounds x="640" y="610" width="99.99156545209178" height="39.13630229419703" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_02k6xum_di" bpmnElement="Activity_02k6xum">
-        <dc:Bounds x="240" y="930" width="100" height="80" />
+      <bpmndi:BPMNShape id="Gateway_033wgvw_di" bpmnElement="Gateway_033wgvw" isMarkerVisible="true">
+        <dc:Bounds x="305" y="605" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0oz69c8_di" bpmnElement="Event_0lxpaox">
         <dc:Bounds x="1592" y="482" width="36" height="36" />
