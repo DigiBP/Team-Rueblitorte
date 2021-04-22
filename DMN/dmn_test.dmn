@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_07nk9n6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
-  <decision id="dmn_privateLiability" name="dmn_privateLiability">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_07nk9n6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <decision id="dmn_test" name="dmn_test">
     <decisionTable id="DecisionTable_1pyihy8" hitPolicy="FIRST">
       <input id="InputClause_1rnfllh" label="deductible" camunda:inputVariable="deductible">
         <inputExpression id="LiteralExpression_1j7w272" typeRef="integer">
@@ -12,11 +12,6 @@
           <text>insurance_amount</text>
         </inputExpression>
       </input>
-      <input id="InputClause_1wwnbvs" label="single_household" biodi:width="218">
-        <inputExpression id="LiteralExpression_03lszlf" typeRef="string">
-          <text></text>
-        </inputExpression>
-      </input>
       <input id="InputClause_1bc6m5l" label="form_of_housing">
         <inputExpression id="LiteralExpression_1k6vvca" typeRef="string">
           <text>form_of_housing</text>
@@ -25,16 +20,13 @@
           <text>"Tenant","Owner"</text>
         </inputValues>
       </input>
-      <output id="OutputClause_06e9w0i" label="Price of Premium" name="priceOfPremium" typeRef="double" />
+      <output id="OutputClause_06e9w0i" label="price_of_premium" name="price_of_premium" typeRef="string" />
       <rule id="DecisionRule_11y339c">
         <inputEntry id="UnaryTests_1j9mhni">
           <text>200</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1pj6dfg">
           <text>5</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0zccpia">
-          <text>Yes</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1jt16oy">
           <text>"Owner"</text>
@@ -50,9 +42,6 @@
         <inputEntry id="UnaryTests_0ymkbol">
           <text>10</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0c33los">
-          <text>Yes</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_0jdjbhs">
           <text>"Owner"</text>
         </inputEntry>
@@ -66,9 +55,6 @@
         </inputEntry>
         <inputEntry id="UnaryTests_0krasvm">
           <text>5</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0x61crq">
-          <text>Yes</text>
         </inputEntry>
         <inputEntry id="UnaryTests_046szmw">
           <text>"Owner"</text>
@@ -84,9 +70,6 @@
         <inputEntry id="UnaryTests_0cigs8m">
           <text>10</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_08b427h">
-          <text>No</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_0nwbt8j">
           <text>"Tenant"</text>
         </inputEntry>
@@ -100,9 +83,6 @@
         </inputEntry>
         <inputEntry id="UnaryTests_1lgjeyg">
           <text>5</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1f6e7t0">
-          <text>Yes</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jlrdpe">
           <text>"Owner"</text>
@@ -118,9 +98,6 @@
         <inputEntry id="UnaryTests_08scxbd">
           <text>-</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_095fw8j">
-          <text>-</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_06zqlrd">
           <text>-</text>
         </inputEntry>
@@ -128,45 +105,11 @@
           <text>-1</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1g5mgr5">
-        <inputEntry id="UnaryTests_1aauhee">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1k18ryk">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1ua1bo6">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0lwznks">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0im4zpt">
-          <text></text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1ghex3e">
-        <inputEntry id="UnaryTests_0vqlwtt">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1qnzj54">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0q9t7jp">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0rh1kr0">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_033gh62">
-          <text></text>
-        </outputEntry>
-      </rule>
     </decisionTable>
   </decision>
   <dmndi:DMNDI>
     <dmndi:DMNDiagram>
-      <dmndi:DMNShape id="DMNShape_1dc3h2o" dmnElementRef="dmn_privateLiability">
+      <dmndi:DMNShape id="DMNShape_1dc3h2o" dmnElementRef="dmn_test">
         <dc:Bounds height="80" width="180" x="160" y="80" />
       </dmndi:DMNShape>
     </dmndi:DMNDiagram>

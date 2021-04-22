@@ -14,8 +14,9 @@
         <bpmn:flowNodeRef>Activity_1s7jl3o</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_08pw5wf</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1ktx8mh</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0e16k1z</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0r1gtzh</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0e16k1z</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_000ejxy</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1" name="Webform received">
@@ -29,10 +30,8 @@
         <camunda:formData>
           <camunda:formField id="date_of_birth" label="date_of_birth" type="string" />
           <camunda:formField id="location" label="location" type="string" />
-          <camunda:formField id="deductible" label="deductible" type="long" />
-          <camunda:formField id="insurance_amount" label="insurance_amount" type="long" />
-          <camunda:formField id="form_of_housing" label="form_of_housing" type="string" />
-          <camunda:formField id="single_household" label="single_household" type="boolean" />
+          <camunda:formField id="first_name" label="first_name" type="string" />
+          <camunda:formField id="surname" label="surname" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1kp0zcf</bpmn:incoming>
@@ -40,11 +39,6 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0bed60m" sourceRef="Gateway_1ktx8mh" targetRef="Activity_1s7jl3o" />
     <bpmn:userTask id="Activity_1s7jl3o" name="Check address">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="Name" label="Name" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0bed60m</bpmn:incoming>
       <bpmn:outgoing>Flow_0r2js2n</bpmn:outgoing>
     </bpmn:userTask>
@@ -60,26 +54,28 @@
       <bpmn:outgoing>Flow_1kp0zcf</bpmn:outgoing>
       <bpmn:outgoing>Flow_0bed60m</bpmn:outgoing>
     </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_0jf7w2z" sourceRef="Gateway_08pw5wf" targetRef="Activity_0r1gtzh" />
+    <bpmn:businessRuleTask id="Activity_0r1gtzh" name="Calculate" camunda:decisionRef="dmn_test">
+      <bpmn:incoming>Flow_0jf7w2z</bpmn:incoming>
+      <bpmn:outgoing>Flow_14f2phz</bpmn:outgoing>
+    </bpmn:businessRuleTask>
     <bpmn:endEvent id="Event_0e16k1z">
-      <bpmn:incoming>Flow_1d8aaq7</bpmn:incoming>
+      <bpmn:incoming>Flow_1pur00p</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Activity_0r1gtzh" name="Calculate">
+    <bpmn:sequenceFlow id="Flow_14f2phz" sourceRef="Activity_0r1gtzh" targetRef="Activity_000ejxy" />
+    <bpmn:sequenceFlow id="Flow_1pur00p" sourceRef="Activity_000ejxy" targetRef="Event_0e16k1z" />
+    <bpmn:userTask id="Activity_000ejxy">
       <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="Output_343ej7e" />
+        </camunda:inputOutput>
         <camunda:formData>
-          <camunda:formField id="begin_insurance" label="begin_insurance" type="string" />
-          <camunda:formField id="date_of_birth" label="date_of_birth" type="string" />
-          <camunda:formField id="location" label="location" type="string" />
-          <camunda:formField id="deductible" label="deductible" type="long" />
-          <camunda:formField id="insurance_amount" label="insurance_amount" type="long" />
-          <camunda:formField id="form_of_housing" label="form_of_housing" type="string" />
-          <camunda:formField id="single_household" label="single_household" type="boolean" />
+          <camunda:formField id="price_of_Premium" label="price_of_Premium" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0jf7w2z</bpmn:incoming>
-      <bpmn:outgoing>Flow_1d8aaq7</bpmn:outgoing>
+      <bpmn:incoming>Flow_14f2phz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1pur00p</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_0jf7w2z" sourceRef="Gateway_08pw5wf" targetRef="Activity_0r1gtzh" />
-    <bpmn:sequenceFlow id="Flow_1d8aaq7" sourceRef="Activity_0r1gtzh" targetRef="Event_0e16k1z" />
   </bpmn:process>
   <bpmn:message id="Message_0hh0o77" name="application_household" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -120,9 +116,15 @@
         <di:waypoint x="625" y="690" />
         <di:waypoint x="710" y="690" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1d8aaq7_di" bpmnElement="Flow_1d8aaq7">
+      <bpmndi:BPMNEdge id="Flow_14f2phz_di" bpmnElement="Flow_14f2phz">
         <di:waypoint x="810" y="690" />
-        <di:waypoint x="902" y="690" />
+        <di:waypoint x="900" y="690" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pur00p_di" bpmnElement="Flow_1pur00p">
+        <di:waypoint x="1000" y="690" />
+        <di:waypoint x="1101" y="690" />
+        <di:waypoint x="1101" y="710" />
+        <di:waypoint x="1202" y="710" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1jcqas0_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="192" y="626" width="36" height="36" />
@@ -142,14 +144,17 @@
       <bpmndi:BPMNShape id="Gateway_15l40lg_di" bpmnElement="Gateway_1ktx8mh">
         <dc:Bounds x="305" y="619" width="50" height="50" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1a6avrn_di" bpmnElement="Activity_0r1gtzh">
+        <dc:Bounds x="710" y="650" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0e16k1z_di" bpmnElement="Event_0e16k1z">
-        <dc:Bounds x="902" y="672" width="36" height="36" />
+        <dc:Bounds x="1202" y="692" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="562" y="633" width="76" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0r1gtzh_di" bpmnElement="Activity_0r1gtzh">
-        <dc:Bounds x="710" y="650" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_1a2tsi0_di" bpmnElement="Activity_000ejxy">
+        <dc:Bounds x="900" y="650" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1qze06k_di" bpmnElement="Participant_0kd835z" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1928" height="60" />
