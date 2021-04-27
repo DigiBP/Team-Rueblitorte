@@ -2,17 +2,17 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_07nk9n6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
   <decision id="dmn_test" name="dmn_test">
     <decisionTable id="DecisionTable_1pyihy8" hitPolicy="FIRST">
-      <input id="InputClause_1rnfllh" label="deductible" camunda:inputVariable="deductible">
+      <input id="InputClause_1rnfllh" label="deductible" biodi:width="192" camunda:inputVariable="deductible">
         <inputExpression id="LiteralExpression_1j7w272" typeRef="integer">
           <text>deductible</text>
         </inputExpression>
       </input>
-      <input id="InputClause_1yrk9ya" label="insurance_amount">
+      <input id="InputClause_1yrk9ya" label="insurance_amount" camunda:inputVariable="insurance_amount">
         <inputExpression id="LiteralExpression_12wutqm" typeRef="integer">
           <text>insurance_amount</text>
         </inputExpression>
       </input>
-      <input id="InputClause_1bc6m5l" label="form_of_housing">
+      <input id="InputClause_1bc6m5l" label="form_of_housing" camunda:inputVariable="form_of_housing">
         <inputExpression id="LiteralExpression_1k6vvca" typeRef="string">
           <text>form_of_housing</text>
         </inputExpression>
@@ -20,7 +20,7 @@
           <text>"Tenant","Owner"</text>
         </inputValues>
       </input>
-      <output id="OutputClause_06e9w0i" label="price_of_premium" name="price_of_premium" typeRef="double" biodi:width="192" />
+      <output id="OutputClause_06e9w0i" label="price_of_premium" name="price_of_premium" typeRef="long" biodi:width="192" />
       <rule id="DecisionRule_11y339c">
         <inputEntry id="UnaryTests_1j9mhni">
           <text>200</text>
