@@ -11,12 +11,12 @@
       <bpmn:lane id="Lane_1x7j7el">
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0h4zbvr</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_1s7jl3o</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_08pw5wf</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1ktx8mh</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_000ejxy</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0r1gtzh</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0e16k1z</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1s7jl3o</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1" name="Webform received">
@@ -38,10 +38,6 @@
       <bpmn:outgoing>Flow_0ile26r</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0bed60m" sourceRef="Gateway_1ktx8mh" targetRef="Activity_1s7jl3o" />
-    <bpmn:userTask id="Activity_1s7jl3o" name="Check address">
-      <bpmn:incoming>Flow_0bed60m</bpmn:incoming>
-      <bpmn:outgoing>Flow_0r2js2n</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0ile26r" sourceRef="Activity_0h4zbvr" targetRef="Gateway_08pw5wf" />
     <bpmn:sequenceFlow id="Flow_0r2js2n" sourceRef="Activity_1s7jl3o" targetRef="Gateway_08pw5wf" />
     <bpmn:parallelGateway id="Gateway_08pw5wf">
@@ -76,6 +72,10 @@
     <bpmn:endEvent id="Event_0e16k1z">
       <bpmn:incoming>Flow_1pur00p</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_1s7jl3o" name="Check address">
+      <bpmn:incoming>Flow_0bed60m</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r2js2n</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:message id="Message_0hh0o77" name="application_household" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -133,9 +133,6 @@
       <bpmndi:BPMNShape id="Activity_1hkaejp_di" bpmnElement="Activity_0h4zbvr">
         <dc:Bounds x="430" y="610" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0emqvs4_di" bpmnElement="Activity_1s7jl3o">
-        <dc:Bounds x="430" y="710" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_167ue30_di" bpmnElement="Gateway_08pw5wf">
         <dc:Bounds x="575" y="665" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -153,6 +150,9 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="562" y="633" width="76" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1iodfko_di" bpmnElement="Activity_1s7jl3o">
+        <dc:Bounds x="430" y="710" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1qze06k_di" bpmnElement="Participant_0kd835z" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1928" height="60" />
