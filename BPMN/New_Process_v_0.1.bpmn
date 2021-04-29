@@ -15,8 +15,9 @@
         <bpmn:flowNodeRef>Event_0e16k1z</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>CheckNameAddress</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_16ow9xd</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0cjvr2p</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0aw68za</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1xxbs63</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0wfxlax</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1" name="Webform received">
@@ -47,45 +48,67 @@
     </bpmn:endEvent>
     <bpmn:serviceTask id="CheckNameAddress" name="CheckNameAddress">
       <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:outputParameter name="checkNameAddress.Result" />
-        </camunda:inputOutput>
         <camunda:connector>
           <camunda:inputOutput>
+            <camunda:inputParameter name="Content-Type">application/json</camunda:inputParameter>
             <camunda:inputParameter name="method">GET</camunda:inputParameter>
             <camunda:inputParameter name="url">
-              <camunda:script scriptFormat="JavaScript">url = 
-"https://tel.search.ch/api/?was=Moebius&amp;Thoralf&amp;key=a1912428e30c87f91fc3b6cc418404e2&amp;lang=de";</camunda:script>
+              <camunda:script scriptFormat="JavaScript">// surname = "Möbius";
+// first_name = "Thoralf";
+// location = "Habsburg";
+// zip_code = "5245";
+// street = "Dorfstrasse";
+// number = "46";
+// toBeChecked = totalResults &gt; 0;
+
+url = 
+"https://tel.search.ch/api/?was="+surname+"%20"+ first_name+"&amp;wo="+location+"%20"+zip_code+"%20"+street+"%20"+number+"&amp;key=a1912428e30c87f91fc3b6cc418404e2&amp;lang=de";</camunda:script>
             </camunda:inputParameter>
-            <camunda:outputParameter name="CheckNameAddress" />
+            <camunda:outputParameter name="CheckNameAddressResponse">${response}</camunda:outputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
         </camunda:connector>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0iihe89</bpmn:incoming>
-      <bpmn:outgoing>Flow_1r6o3y7</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1h03ewv</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:exclusiveGateway id="Gateway_16ow9xd">
       <bpmn:incoming>Flow_17amuiq</bpmn:incoming>
-      <bpmn:incoming>Flow_1305q08</bpmn:incoming>
+      <bpmn:incoming>Flow_15jjlh9</bpmn:incoming>
       <bpmn:outgoing>Flow_0iihe89</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0iihe89" sourceRef="Gateway_16ow9xd" targetRef="CheckNameAddress" />
-    <bpmn:boundaryEvent id="Event_0cjvr2p" attachedToRef="CheckNameAddress">
-      <bpmn:outgoing>Flow_1305q08</bpmn:outgoing>
-      <bpmn:errorEventDefinition id="ErrorEventDefinition_0zqk1fo" />
-    </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="Flow_1305q08" sourceRef="Event_0cjvr2p" targetRef="Gateway_16ow9xd" />
-    <bpmn:sequenceFlow id="Flow_1r6o3y7" sourceRef="CheckNameAddress" targetRef="Activity_0aw68za" />
     <bpmn:sequenceFlow id="Flow_1ypo1rx" sourceRef="Activity_0aw68za" targetRef="Activity_0r1gtzh" />
     <bpmn:userTask id="Activity_0aw68za" camunda:formKey="resultSearchCh">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="CheckNameAddress" label="CheckNameAddress" type="string" />
+          <camunda:formField id="CheckNameAddressResponse" label="CheckNameAddressResponse" type="string" defaultValue="${result}" />
         </camunda:formData>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1r6o3y7</bpmn:incoming>
+      <bpmn:incoming>Flow_1ch64rp</bpmn:incoming>
       <bpmn:outgoing>Flow_1ypo1rx</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_1xxbs63">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1h03ewv</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ch64rp</bpmn:outgoing>
+      <bpmn:outgoing>Flow_13yhfuj</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1h03ewv" sourceRef="CheckNameAddress" targetRef="Gateway_1xxbs63" />
+    <bpmn:sequenceFlow id="Flow_1ch64rp" sourceRef="Gateway_1xxbs63" targetRef="Activity_0aw68za">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">{result &gt; 0}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_13yhfuj" sourceRef="Gateway_1xxbs63" targetRef="Activity_0wfxlax">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">{Result = 0}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_15jjlh9" sourceRef="Activity_0wfxlax" targetRef="Gateway_16ow9xd" />
+    <bpmn:userTask id="Activity_0wfxlax" name="Check Name and Address">
+      <bpmn:incoming>Flow_13yhfuj</bpmn:incoming>
+      <bpmn:outgoing>Flow_15jjlh9</bpmn:outgoing>
     </bpmn:userTask>
   </bpmn:process>
   <bpmn:message id="Message_0hh0o77" name="application_household" />
@@ -113,23 +136,31 @@
         <di:waypoint x="335" y="644" />
         <di:waypoint x="400" y="644" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1305q08_di" bpmnElement="Flow_1305q08">
-        <di:waypoint x="500" y="586" />
-        <di:waypoint x="500" y="566" />
-        <di:waypoint x="310" y="566" />
-        <di:waypoint x="310" y="619" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1r6o3y7_di" bpmnElement="Flow_1r6o3y7">
-        <di:waypoint x="500" y="644" />
-        <di:waypoint x="540" y="644" />
-        <di:waypoint x="540" y="790" />
-        <di:waypoint x="580" y="790" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ypo1rx_di" bpmnElement="Flow_1ypo1rx">
         <di:waypoint x="680" y="790" />
         <di:waypoint x="696" y="790" />
         <di:waypoint x="696" y="690" />
         <di:waypoint x="711" y="690" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1h03ewv_di" bpmnElement="Flow_1h03ewv">
+        <di:waypoint x="500" y="644" />
+        <di:waypoint x="565" y="644" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ch64rp_di" bpmnElement="Flow_1ch64rp">
+        <di:waypoint x="590" y="669" />
+        <di:waypoint x="590" y="710" />
+        <di:waypoint x="630" y="710" />
+        <di:waypoint x="630" y="750" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13yhfuj_di" bpmnElement="Flow_13yhfuj">
+        <di:waypoint x="590" y="619" />
+        <di:waypoint x="590" y="490" />
+        <di:waypoint x="500" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15jjlh9_di" bpmnElement="Flow_15jjlh9">
+        <di:waypoint x="400" y="490" />
+        <di:waypoint x="310" y="490" />
+        <di:waypoint x="310" y="619" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1jcqas0_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="192" y="626" width="36" height="36" />
@@ -158,8 +189,11 @@
       <bpmndi:BPMNShape id="Activity_0xpxcru_di" bpmnElement="Activity_0aw68za">
         <dc:Bounds x="580" y="750" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_10mgza8_di" bpmnElement="Event_0cjvr2p">
-        <dc:Bounds x="482" y="586" width="36" height="36" />
+      <bpmndi:BPMNShape id="Gateway_1xxbs63_di" bpmnElement="Gateway_1xxbs63" isMarkerVisible="true">
+        <dc:Bounds x="565" y="619" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_12g8ogf_di" bpmnElement="Activity_0wfxlax">
+        <dc:Bounds x="400" y="450" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1qze06k_di" bpmnElement="Participant_0kd835z" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1928" height="60" />
