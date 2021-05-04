@@ -14,7 +14,7 @@
       </input>
       <input id="InputClause_1wwnbvs" label="single_household" biodi:width="218">
         <inputExpression id="LiteralExpression_03lszlf" typeRef="string">
-          <text></text>
+          <text>single_household</text>
         </inputExpression>
       </input>
       <input id="InputClause_1bc6m5l" label="form_of_housing">
@@ -25,7 +25,7 @@
           <text>"Tenant","Owner"</text>
         </inputValues>
       </input>
-      <output id="OutputClause_06e9w0i" label="Price of Premium" name="priceOfPremium" typeRef="double" />
+      <output id="OutputClause_06e9w0i" label="price_of_premium" name="price_of_premium" typeRef="long" />
       <rule id="DecisionRule_11y339c">
         <inputEntry id="UnaryTests_1j9mhni">
           <text>200</text>
@@ -40,7 +40,7 @@
           <text>"Owner"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0i486st">
-          <text>123</text>
+          <text>165.90</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0apfp24">
@@ -57,7 +57,7 @@
           <text>"Owner"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_196szzi">
-          <text>134</text>
+          <text>175.30</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_08d1bk9">
@@ -91,7 +91,7 @@
           <text>"Tenant"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0ycnxyw">
-          <text>159.90</text>
+          <text>120.95</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1nip9pu">
@@ -108,7 +108,7 @@
           <text>"Owner"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0qy0fcg">
-          <text>0</text>
+          <text>110.20</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0z33oyv">
@@ -126,40 +126,6 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_1xl4rxk">
           <text>-1</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1g5mgr5">
-        <inputEntry id="UnaryTests_1aauhee">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1k18ryk">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1ua1bo6">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0lwznks">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0im4zpt">
-          <text></text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1ghex3e">
-        <inputEntry id="UnaryTests_0vqlwtt">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1qnzj54">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0q9t7jp">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0rh1kr0">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_033gh62">
-          <text></text>
         </outputEntry>
       </rule>
     </decisionTable>
