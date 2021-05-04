@@ -10,13 +10,15 @@
     <bpmn:laneSet id="LaneSet_1cykm21">
       <bpmn:lane id="Lane_1x7j7el">
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0e16k1z</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>CheckNameAddress</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0wfxlax</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0e789n5</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0r1gtzh</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1imwgtg</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_12z4vfs</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0pxhxlf</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0e789n5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0e16k1z</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_12vw5is</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1" name="Webform received">
@@ -24,9 +26,6 @@
       <bpmn:messageEventDefinition id="MessageEventDefinition_0hof5sa" messageRef="Message_0hh0o77" />
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_17amuiq" sourceRef="StartEvent_1" targetRef="Gateway_12z4vfs" />
-    <bpmn:endEvent id="Event_0e16k1z">
-      <bpmn:incoming>Flow_02u3z5g</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:serviceTask id="CheckNameAddress" name="CheckNameAddress">
       <bpmn:extensionElements>
         <camunda:connector>
@@ -45,14 +44,14 @@
 url = 
 "https://tel.search.ch/api/?was="+surname+"%20"+ first_name+"&amp;wo="+location+"%20"+zip_code+"%20"+street+"%20"+number+"&amp;key=a1912428e30c87f91fc3b6cc418404e2&amp;lang=de";</camunda:script>
             </camunda:inputParameter>
-            <camunda:outputParameter name="Output_34a74rh">
-              <camunda:script scriptFormat="JavaScript">		// String in ein XML-DOM-Objekt umwandeln
-		let parser = new DOMParser (),
-			xmlDoc = parser.parseFromString (data, 'text/xml');
+            <camunda:outputParameter name="CheckResult">
+              <camunda:script scriptFormat="JavaScript">connector.setVariable("NameAddressResponse",response);
+
+let parser = new DOMParser();
+
+    xmlDoc = parser.parseFromString (NameAddressResponse, 'text/xml');
 		
-		und noch ein paar Test-Ausgaben in die Konsole
-		console.log (xmlDoc.getElementsByTagName ('item'));
-		console.log ("item "  + xmlDoc.getElementsByTagName ('item')[1].children[0].textContent);</camunda:script>
+CheckNameAddressResult = xmlDoc.getElementsByTagName ('openSearch:totalResults');</camunda:script>
             </camunda:outputParameter>
             <camunda:outputParameter name="NameAddressCheckAnswer">0</camunda:outputParameter>
             <camunda:outputParameter name="CheckNameAddressResponse">${response}</camunda:outputParameter>
@@ -78,20 +77,7 @@ url =
       <bpmn:incoming>Flow_1pzh3g4</bpmn:incoming>
       <bpmn:outgoing>Flow_0bkuyp7</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_1n1es86" sourceRef="Activity_0r1gtzh" targetRef="Activity_0e789n5" />
-    <bpmn:userTask id="Activity_0e789n5">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="Input_3u6r5pq">
-            <camunda:map>
-              <camunda:entry key="price">premium</camunda:entry>
-            </camunda:map>
-          </camunda:inputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1n1es86</bpmn:incoming>
-      <bpmn:outgoing>Flow_02u3z5g</bpmn:outgoing>
-    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1n1es86" sourceRef="Activity_0r1gtzh" targetRef="Gateway_0pxhxlf" />
     <bpmn:businessRuleTask id="Activity_0r1gtzh" name="Calculate" camunda:resultVariable="premiumPrice" camunda:decisionRef="dmn_test" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_0mssc6w</bpmn:incoming>
       <bpmn:outgoing>Flow_1n1es86</bpmn:outgoing>
@@ -115,6 +101,36 @@ url =
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1bhsn19" sourceRef="Gateway_12z4vfs" targetRef="CheckNameAddress" />
     <bpmn:sequenceFlow id="Flow_0bkuyp7" sourceRef="Activity_0wfxlax" targetRef="Gateway_12z4vfs" />
+    <bpmn:exclusiveGateway id="Gateway_0pxhxlf">
+      <bpmn:incoming>Flow_1n1es86</bpmn:incoming>
+      <bpmn:outgoing>Flow_0a4nw46</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1y6dsew</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0a4nw46" sourceRef="Gateway_0pxhxlf" targetRef="Activity_0e789n5">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">{premiumPrice &gt; 0}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="Activity_0e789n5">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="Input_3u6r5pq">
+            <camunda:map>
+              <camunda:entry key="price">premium</camunda:entry>
+            </camunda:map>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0a4nw46</bpmn:incoming>
+      <bpmn:outgoing>Flow_02u3z5g</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_0e16k1z" name="Contract">
+      <bpmn:incoming>Flow_02u3z5g</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_12vw5is" name="Offer request rejected">
+      <bpmn:incoming>Flow_1y6dsew</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1y6dsew" sourceRef="Gateway_0pxhxlf" targetRef="Event_12vw5is">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">{premiumPrice &lt; 0}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
   </bpmn:process>
   <bpmn:message id="Message_0hh0o77" name="application_household" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -144,14 +160,14 @@ url =
         <di:waypoint x="670" y="644" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_02u3z5g_di" bpmnElement="Flow_02u3z5g">
-        <di:waypoint x="1010" y="690" />
-        <di:waypoint x="1132" y="690" />
+        <di:waypoint x="1040" y="644" />
+        <di:waypoint x="1086" y="644" />
+        <di:waypoint x="1086" y="490" />
+        <di:waypoint x="1122" y="490" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1n1es86_di" bpmnElement="Flow_1n1es86">
         <di:waypoint x="770" y="644" />
-        <di:waypoint x="861" y="644" />
-        <di:waypoint x="861" y="690" />
-        <di:waypoint x="910" y="690" />
+        <di:waypoint x="825" y="644" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1h03ewv_di" bpmnElement="Flow_1h03ewv">
         <di:waypoint x="500" y="644" />
@@ -161,16 +177,19 @@ url =
         <di:waypoint x="228" y="644" />
         <di:waypoint x="285" y="644" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0a4nw46_di" bpmnElement="Flow_0a4nw46">
+        <di:waypoint x="875" y="644" />
+        <di:waypoint x="940" y="644" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y6dsew_di" bpmnElement="Flow_1y6dsew">
+        <di:waypoint x="850" y="619" />
+        <di:waypoint x="850" y="400" />
+        <di:waypoint x="1122" y="400" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1jcqas0_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="192" y="626" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="205" y="583" width="90" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0e16k1z_di" bpmnElement="Event_0e16k1z">
-        <dc:Bounds x="1132" y="672" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="562" y="633" width="76" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1iodfko_di" bpmnElement="CheckNameAddress">
@@ -178,9 +197,6 @@ url =
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_12g8ogf_di" bpmnElement="Activity_0wfxlax">
         <dc:Bounds x="400" y="450" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0g1z3nw_di" bpmnElement="Activity_0e789n5">
-        <dc:Bounds x="910" y="650" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1a6avrn_di" bpmnElement="Activity_0r1gtzh">
         <dc:Bounds x="670" y="604" width="100" height="80" />
@@ -190,6 +206,24 @@ url =
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_12z4vfs_di" bpmnElement="Gateway_12z4vfs" isMarkerVisible="true">
         <dc:Bounds x="285" y="619" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0pxhxlf_di" bpmnElement="Gateway_0pxhxlf" isMarkerVisible="true">
+        <dc:Bounds x="825" y="619" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_12vw5is_di" bpmnElement="Event_12vw5is">
+        <dc:Bounds x="1122" y="382" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1108" y="425" width="64" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0g1z3nw_di" bpmnElement="Activity_0e789n5">
+        <dc:Bounds x="940" y="604" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0e16k1z_di" bpmnElement="Event_0e16k1z">
+        <dc:Bounds x="1122" y="472" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1119" y="515" width="42" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1qze06k_di" bpmnElement="Participant_0kd835z" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1928" height="60" />
