@@ -44,17 +44,26 @@
 url = 
 "https://tel.search.ch/api/?was="+surname+"%20"+ first_name+"&amp;wo="+location+"%20"+zip_code+"%20"+street+"%20"+number+"&amp;key=a1912428e30c87f91fc3b6cc418404e2&amp;lang=de";</camunda:script>
             </camunda:inputParameter>
-            <camunda:outputParameter name="CheckResult">
+            <camunda:outputParameter name="checkResult">
               <camunda:script scriptFormat="JavaScript">connector.setVariable("NameAddressResponse",response);
 
-let parser = new DOMParser();
 
-    xmlDoc = parser.parseFromString (NameAddressResponse, 'text/xml');
+NameAddressResponse = NameAddressResponse.replace(":", " ");
+
+// var checkResult = S(NameAddressResponse).attr('totalResults').value();
+
+// checkResult = S('&lt;Element id="Test" /&gt;').attr('id').value();
+
+// connector.setVariable("checkResult",'checkResult');
+
+
+// let parser = new DOMParser();
+
+//    xmlDoc = parser.parseFromString (NameAddressResponse, 'text/xml');
 		
-CheckNameAddressResult = xmlDoc.getElementsByTagName ('openSearch:totalResults');</camunda:script>
+// CheckNameAddressResult = xmlDoc.getElementsByTagName ('openSearch:totalResults');</camunda:script>
             </camunda:outputParameter>
-            <camunda:outputParameter name="NameAddressCheckAnswer">0</camunda:outputParameter>
-            <camunda:outputParameter name="CheckNameAddressResponse">${response}</camunda:outputParameter>
+            <camunda:outputParameter name="NameAddressCheckAnswer">1</camunda:outputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
         </camunda:connector>
@@ -107,7 +116,7 @@ CheckNameAddressResult = xmlDoc.getElementsByTagName ('openSearch:totalResults')
       <bpmn:outgoing>Flow_1y6dsew</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0a4nw46" sourceRef="Gateway_0pxhxlf" targetRef="Activity_0e789n5">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">{premiumPrice &gt; 0}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${premiumPrice &gt; 0}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:userTask id="Activity_0e789n5">
       <bpmn:extensionElements>
@@ -129,7 +138,7 @@ CheckNameAddressResult = xmlDoc.getElementsByTagName ('openSearch:totalResults')
       <bpmn:incoming>Flow_1y6dsew</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1y6dsew" sourceRef="Gateway_0pxhxlf" targetRef="Event_12vw5is">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">{premiumPrice &lt; 0}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${premiumPrice &lt; 0}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
   </bpmn:process>
   <bpmn:message id="Message_0hh0o77" name="application_household" />
@@ -141,6 +150,15 @@ CheckNameAddressResult = xmlDoc.getElementsByTagName ('openSearch:totalResults')
       <bpmndi:BPMNShape id="Lane_1x7j7el_di" bpmnElement="Lane_1x7j7el" isHorizontal="true">
         <dc:Bounds x="190" y="256" width="1898" height="814" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1y6dsew_di" bpmnElement="Flow_1y6dsew">
+        <di:waypoint x="850" y="619" />
+        <di:waypoint x="850" y="400" />
+        <di:waypoint x="1122" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0a4nw46_di" bpmnElement="Flow_0a4nw46">
+        <di:waypoint x="875" y="644" />
+        <di:waypoint x="940" y="644" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0bkuyp7_di" bpmnElement="Flow_0bkuyp7">
         <di:waypoint x="400" y="490" />
         <di:waypoint x="310" y="490" />
@@ -177,15 +195,6 @@ CheckNameAddressResult = xmlDoc.getElementsByTagName ('openSearch:totalResults')
         <di:waypoint x="228" y="644" />
         <di:waypoint x="285" y="644" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0a4nw46_di" bpmnElement="Flow_0a4nw46">
-        <di:waypoint x="875" y="644" />
-        <di:waypoint x="940" y="644" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1y6dsew_di" bpmnElement="Flow_1y6dsew">
-        <di:waypoint x="850" y="619" />
-        <di:waypoint x="850" y="400" />
-        <di:waypoint x="1122" y="400" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1jcqas0_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="192" y="626" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -210,12 +219,6 @@ CheckNameAddressResult = xmlDoc.getElementsByTagName ('openSearch:totalResults')
       <bpmndi:BPMNShape id="Gateway_0pxhxlf_di" bpmnElement="Gateway_0pxhxlf" isMarkerVisible="true">
         <dc:Bounds x="825" y="619" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_12vw5is_di" bpmnElement="Event_12vw5is">
-        <dc:Bounds x="1122" y="382" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1108" y="425" width="64" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0g1z3nw_di" bpmnElement="Activity_0e789n5">
         <dc:Bounds x="940" y="604" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -223,6 +226,12 @@ CheckNameAddressResult = xmlDoc.getElementsByTagName ('openSearch:totalResults')
         <dc:Bounds x="1122" y="472" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1119" y="515" width="42" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_12vw5is_di" bpmnElement="Event_12vw5is">
+        <dc:Bounds x="1122" y="382" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1108" y="425" width="64" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1qze06k_di" bpmnElement="Participant_0kd835z" isHorizontal="true">
