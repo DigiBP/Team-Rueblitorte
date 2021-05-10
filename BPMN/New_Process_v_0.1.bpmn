@@ -42,26 +42,12 @@
 // toBeChecked = totalResults &gt; 0;
 
 url = 
-"https://tel.search.ch/api/?was="+surname+"%20"+ first_name+"&amp;wo="+location+"%20"+zip_code+"%20"+street+"%20"+number+"&amp;key=a1912428e30c87f91fc3b6cc418404e2&amp;lang=de";</camunda:script>
+"https://tel.search.ch/api/?was="+surname+"%20"+ first_name+"&amp;wo="+location+"%20"+zip_code+"%20"+street+"%20"+number+"&amp;key=a1912428e30c87f91fc3b6cc418404e2&amp;lang=de&amp;count_only=ja";</camunda:script>
             </camunda:inputParameter>
             <camunda:outputParameter name="checkResult">
-              <camunda:script scriptFormat="JavaScript">connector.setVariable("NameAddressResponse",response);
+              <camunda:script scriptFormat="JavaScript">// connector.setVariable("NameAddressResponse",response);
 
-
-NameAddressResponse = NameAddressResponse.replace(":", " ");
-
-// var checkResult = S(NameAddressResponse).attr('totalResults').value();
-
-// checkResult = S('&lt;Element id="Test" /&gt;').attr('id').value();
-
-// connector.setVariable("checkResult",'checkResult');
-
-
-// let parser = new DOMParser();
-
-//    xmlDoc = parser.parseFromString (NameAddressResponse, 'text/xml');
-		
-// CheckNameAddressResult = xmlDoc.getElementsByTagName ('openSearch:totalResults');</camunda:script>
+connector.setVariable("addressExists",response.search("&lt;openSearch:totalResults&gt;1"));</camunda:script>
             </camunda:outputParameter>
             <camunda:outputParameter name="NameAddressCheckAnswer">1</camunda:outputParameter>
           </camunda:inputOutput>
@@ -98,10 +84,10 @@ NameAddressResponse = NameAddressResponse.replace(":", " ");
       <bpmn:outgoing>Flow_1pzh3g4</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0mssc6w" sourceRef="Gateway_1imwgtg" targetRef="Activity_0r1gtzh">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${NameAddressCheckAnswer=="1"}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${addressExists &gt; 0}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1pzh3g4" sourceRef="Gateway_1imwgtg" targetRef="Activity_0wfxlax">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${NameAddressCheckAnswer=="0"}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${addressExists &lt; 0}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:exclusiveGateway id="Gateway_12z4vfs">
       <bpmn:incoming>Flow_17amuiq</bpmn:incoming>
