@@ -20,6 +20,11 @@
           <text>"Tenant","Owner"</text>
         </inputValues>
       </input>
+      <input id="InputClause_0jmd878">
+        <inputExpression id="LiteralExpression_0zeigtb" typeRef="string">
+          <text>single_household</text>
+        </inputExpression>
+      </input>
       <output id="OutputClause_06e9w0i" label="price_of_premium" name="price_of_premium" typeRef="long" biodi:width="192" />
       <rule id="DecisionRule_11y339c">
         <inputEntry id="UnaryTests_1j9mhni">
@@ -30,6 +35,9 @@
         </inputEntry>
         <inputEntry id="UnaryTests_1jt16oy">
           <text>"Owner"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15fc5x6">
+          <text>"Yes"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0i486st">
           <text>123</text>
@@ -45,6 +53,9 @@
         <inputEntry id="UnaryTests_0jdjbhs">
           <text>"Owner"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0id6i6n">
+          <text>"Yes"</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_196szzi">
           <text>134</text>
         </outputEntry>
@@ -58,6 +69,9 @@
         </inputEntry>
         <inputEntry id="UnaryTests_046szmw">
           <text>"Owner"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0u1pp3k">
+          <text>"Yes"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1wx7eil">
           <text>145.90</text>
@@ -73,6 +87,9 @@
         <inputEntry id="UnaryTests_0nwbt8j">
           <text>"Tenant"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1p4kihw">
+          <text>"No"</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0ycnxyw">
           <text>159.90</text>
         </outputEntry>
@@ -87,6 +104,9 @@
         <inputEntry id="UnaryTests_0jlrdpe">
           <text>"Owner"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1c9o8t6">
+          <text>"Yes"</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0qy0fcg">
           <text>0</text>
         </outputEntry>
@@ -100,6 +120,9 @@
         </inputEntry>
         <inputEntry id="UnaryTests_06zqlrd">
           <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h633vx">
+          <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1xl4rxk">
           <text>-1</text>

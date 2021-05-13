@@ -11,7 +11,6 @@
       <bpmn:lane id="Lane_1x7j7el">
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>CheckNameAddress</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0wfxlax</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0r1gtzh</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1imwgtg</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_12z4vfs</bpmn:flowNodeRef>
@@ -19,6 +18,8 @@
         <bpmn:flowNodeRef>Activity_0e789n5</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0e16k1z</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_12vw5is</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0wfxlax</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_031r57g</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1" name="Webform received">
@@ -45,11 +46,8 @@ url =
 "https://tel.search.ch/api/?was="+surname+"%20"+ first_name+"&amp;wo="+location+"%20"+zip_code+"%20"+street+"%20"+number+"&amp;key=a1912428e30c87f91fc3b6cc418404e2&amp;lang=de&amp;count_only=ja";</camunda:script>
             </camunda:inputParameter>
             <camunda:outputParameter name="checkResult">
-              <camunda:script scriptFormat="JavaScript">// connector.setVariable("NameAddressResponse",response);
-
-connector.setVariable("addressExists",response.search("&lt;openSearch:totalResults&gt;1"));</camunda:script>
+              <camunda:script scriptFormat="JavaScript">connector.setVariable("addressExists",response.search("&lt;openSearch:totalResults&gt;1"));</camunda:script>
             </camunda:outputParameter>
-            <camunda:outputParameter name="NameAddressCheckAnswer">1</camunda:outputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
         </camunda:connector>
@@ -58,20 +56,6 @@ connector.setVariable("addressExists",response.search("&lt;openSearch:totalResul
       <bpmn:outgoing>Flow_1h03ewv</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1h03ewv" sourceRef="CheckNameAddress" targetRef="Gateway_1imwgtg" />
-    <bpmn:userTask id="Activity_0wfxlax" name="Check Name and Address" camunda:formKey="number">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="first_name" label="First name" type="string" />
-          <camunda:formField id="surname" label="Sure name" type="string" />
-          <camunda:formField id="street" label="Street name" type="string" />
-          <camunda:formField id="zip_code" type="string" />
-          <camunda:formField id="location" type="string" />
-          <camunda:formField id="number" label="House number" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1pzh3g4</bpmn:incoming>
-      <bpmn:outgoing>Flow_0bkuyp7</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_1n1es86" sourceRef="Activity_0r1gtzh" targetRef="Gateway_0pxhxlf" />
     <bpmn:businessRuleTask id="Activity_0r1gtzh" name="Calculate" camunda:resultVariable="premiumPrice" camunda:decisionRef="dmn_test" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_0mssc6w</bpmn:incoming>
@@ -121,11 +105,30 @@ connector.setVariable("addressExists",response.search("&lt;openSearch:totalResul
       <bpmn:incoming>Flow_02u3z5g</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:endEvent id="Event_12vw5is" name="Offer request rejected">
-      <bpmn:incoming>Flow_1y6dsew</bpmn:incoming>
+      <bpmn:incoming>Flow_0wllvg4</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1y6dsew" sourceRef="Gateway_0pxhxlf" targetRef="Event_12vw5is">
+    <bpmn:sequenceFlow id="Flow_1y6dsew" sourceRef="Gateway_0pxhxlf" targetRef="Activity_031r57g">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${premiumPrice &lt; 0}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
+    <bpmn:userTask id="Activity_0wfxlax" name="Check Name and Address">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="first_name" label="First name" type="string" />
+          <camunda:formField id="surname" label="Sure name" type="string" />
+          <camunda:formField id="street" label="Street name" type="string" />
+          <camunda:formField id="zip_code" label="ZIP" type="string" />
+          <camunda:formField id="location" label="City" type="string" />
+          <camunda:formField id="number" label="House number" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1pzh3g4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bkuyp7</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0wllvg4" sourceRef="Activity_031r57g" targetRef="Event_12vw5is" />
+    <bpmn:userTask id="Activity_031r57g">
+      <bpmn:incoming>Flow_1y6dsew</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wllvg4</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmn:message id="Message_0hh0o77" name="application_household" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -139,15 +142,15 @@ connector.setVariable("addressExists",response.search("&lt;openSearch:totalResul
       <bpmndi:BPMNEdge id="Flow_1y6dsew_di" bpmnElement="Flow_1y6dsew">
         <di:waypoint x="850" y="619" />
         <di:waypoint x="850" y="400" />
-        <di:waypoint x="1122" y="400" />
+        <di:waypoint x="890" y="400" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0a4nw46_di" bpmnElement="Flow_0a4nw46">
         <di:waypoint x="875" y="644" />
         <di:waypoint x="940" y="644" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0bkuyp7_di" bpmnElement="Flow_0bkuyp7">
-        <di:waypoint x="400" y="490" />
-        <di:waypoint x="310" y="490" />
+        <di:waypoint x="400" y="492" />
+        <di:waypoint x="310" y="492" />
         <di:waypoint x="310" y="619" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1bhsn19_di" bpmnElement="Flow_1bhsn19">
@@ -156,8 +159,8 @@ connector.setVariable("addressExists",response.search("&lt;openSearch:totalResul
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1pzh3g4_di" bpmnElement="Flow_1pzh3g4">
         <di:waypoint x="580" y="619" />
-        <di:waypoint x="580" y="490" />
-        <di:waypoint x="500" y="490" />
+        <di:waypoint x="580" y="492" />
+        <di:waypoint x="500" y="492" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0mssc6w_di" bpmnElement="Flow_0mssc6w">
         <di:waypoint x="605" y="644" />
@@ -181,6 +184,10 @@ connector.setVariable("addressExists",response.search("&lt;openSearch:totalResul
         <di:waypoint x="228" y="644" />
         <di:waypoint x="285" y="644" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wllvg4_di" bpmnElement="Flow_0wllvg4">
+        <di:waypoint x="990" y="400" />
+        <di:waypoint x="1122" y="400" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1jcqas0_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="192" y="626" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -189,9 +196,6 @@ connector.setVariable("addressExists",response.search("&lt;openSearch:totalResul
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1iodfko_di" bpmnElement="CheckNameAddress">
         <dc:Bounds x="400" y="604" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_12g8ogf_di" bpmnElement="Activity_0wfxlax">
-        <dc:Bounds x="400" y="450" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1a6avrn_di" bpmnElement="Activity_0r1gtzh">
         <dc:Bounds x="670" y="604" width="100" height="80" />
@@ -219,6 +223,12 @@ connector.setVariable("addressExists",response.search("&lt;openSearch:totalResul
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1108" y="425" width="64" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_12g8ogf_di" bpmnElement="Activity_0wfxlax">
+        <dc:Bounds x="400" y="452" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_194h14b_di" bpmnElement="Activity_031r57g">
+        <dc:Bounds x="890" y="360" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1qze06k_di" bpmnElement="Participant_0kd835z" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1928" height="60" />
