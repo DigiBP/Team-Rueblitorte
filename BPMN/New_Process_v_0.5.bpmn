@@ -125,18 +125,20 @@ url =
           <camunda:inputOutput>
             <camunda:inputParameter name="url">https://hook.integromat.com/kdv7otdgzqfp9ssy5w7vbwskkh85wevi</camunda:inputParameter>
             <camunda:inputParameter name="payload">
-              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({"surname":surname});
-out = JSON.stringify({"first_name":first_name});
-out = JSON.stringify({"street":street});
-out = JSON.stringify({"number":number});
-out = JSON.stringify({"zip_code":zip_code});
-out = JSON.stringify({"email":email});
-out = JSON.stringify({"begin_insurance":begin_insurance});
-out = JSON.stringify({"date_of_birth":date_of_birth});
-out = JSON.stringify({"deductible":deductible});
-out = JSON.stringify({"insurance_amount":insurance_amount});
-out = JSON.stringify({"form_of_housing":form_of_housing});
-out = JSON.stringify({"single_household":single_household});</camunda:script>
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({"surname":surname, 
+"first_name":first_name,
+"street":street,
+"number":number,
+"location":location,
+"zip_code":zip_code,
+"email":email,
+"begin_insurance":begin_insurance,
+"date_of_birth":date_of_birth,
+"deductible":deductible,
+"insurance_amount":insurance_amount,
+"form_of_housing":form_of_housing,
+"premiumPrice":premiumPrice,
+"single_household":single_household});</camunda:script>
             </camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
