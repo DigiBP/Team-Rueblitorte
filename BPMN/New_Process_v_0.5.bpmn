@@ -125,7 +125,18 @@ url =
           <camunda:inputOutput>
             <camunda:inputParameter name="url">https://hook.integromat.com/kdv7otdgzqfp9ssy5w7vbwskkh85wevi</camunda:inputParameter>
             <camunda:inputParameter name="payload">
-              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({"surname":surname});</camunda:script>
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({"surname":surname});
+out = JSON.stringify({"first_name":first_name});
+out = JSON.stringify({"street":street});
+out = JSON.stringify({"number":number});
+out = JSON.stringify({"zip_code":zip_code});
+out = JSON.stringify({"email":email});
+out = JSON.stringify({"begin_insurance":begin_insurance});
+out = JSON.stringify({"date_of_birth":date_of_birth});
+out = JSON.stringify({"deductible":deductible});
+out = JSON.stringify({"insurance_amount":insurance_amount});
+out = JSON.stringify({"form_of_housing":form_of_housing});
+out = JSON.stringify({"single_household":single_household});</camunda:script>
             </camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -161,6 +172,10 @@ url =
       <bpmndi:BPMNShape id="Lane_1x7j7el_di" bpmnElement="Lane_1x7j7el" isHorizontal="true">
         <dc:Bounds x="190" y="256" width="1898" height="814" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0p4icz6_di" bpmnElement="Flow_0p4icz6">
+        <di:waypoint x="1331" y="640" />
+        <di:waypoint x="1442" y="640" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0wllvg4_di" bpmnElement="Flow_0wllvg4">
         <di:waypoint x="990" y="400" />
         <di:waypoint x="1442" y="400" />
@@ -207,10 +222,6 @@ url =
       <bpmndi:BPMNEdge id="Flow_17amuiq_di" bpmnElement="Flow_17amuiq">
         <di:waypoint x="228" y="644" />
         <di:waypoint x="285" y="644" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0p4icz6_di" bpmnElement="Flow_0p4icz6">
-        <di:waypoint x="1331" y="640" />
-        <di:waypoint x="1442" y="640" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1jcqas0_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="192" y="626" width="36" height="36" />
