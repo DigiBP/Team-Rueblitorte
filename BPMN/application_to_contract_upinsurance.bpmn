@@ -2,13 +2,13 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1uqpt42" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
   <bpmn:collaboration id="Collaboration_1tyu924">
     <bpmn:documentation>Send information toUnderwriter</bpmn:documentation>
-    <bpmn:participant id="Participant_0b94270" name="Personal Liability Insurance" processRef="Process_1crhg3c" />
+    <bpmn:participant id="Participant_0b94270" processRef="Process_1crhg3c" />
     <bpmn:participant id="Participant_0kd835z" name="Customer" />
     <bpmn:messageFlow id="Flow_1ln7w2p" name="Formular data" sourceRef="Participant_0kd835z" targetRef="StartEvent_1" />
     <bpmn:messageFlow id="Flow_1iwsvg2" name="Offer" sourceRef="Activity_0e789n5" targetRef="Participant_0kd835z" />
     <bpmn:messageFlow id="Flow_1q2d52e" name="Contract confirmation" sourceRef="Participant_0kd835z" targetRef="Activity_12i4z16" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_1crhg3c" isExecutable="true">
+  <bpmn:process id="Process_1crhg3c" name="application_to_contract_upinsurance" isExecutable="true">
     <bpmn:laneSet id="LaneSet_1cykm21">
       <bpmn:lane id="Lane_1x7j7el">
         <bpmn:flowNodeRef>CheckNameAddress</bpmn:flowNodeRef>
