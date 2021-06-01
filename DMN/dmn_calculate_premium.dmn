@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_07nk9n6" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
-  <decision id="dmn_test" name="dmn_calculate_premium">
+  <decision id="dmn_calculate_premium" name="dmn_calculate_premium">
     <decisionTable id="DecisionTable_1pyihy8" hitPolicy="FIRST">
       <input id="InputClause_1rnfllh" label="deductible" biodi:width="192" camunda:inputVariable="deductible">
         <inputExpression id="LiteralExpression_1j7w272" typeRef="integer">
@@ -132,7 +132,7 @@
   </decision>
   <dmndi:DMNDI>
     <dmndi:DMNDiagram>
-      <dmndi:DMNShape id="DMNShape_1dc3h2o" dmnElementRef="dmn_test">
+      <dmndi:DMNShape id="DMNShape_1dc3h2o" dmnElementRef="dmn_calculate_premium">
         <dc:Bounds height="80" width="180" x="160" y="80" />
       </dmndi:DMNShape>
     </dmndi:DMNDiagram>

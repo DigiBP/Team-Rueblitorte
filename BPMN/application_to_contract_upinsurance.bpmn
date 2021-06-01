@@ -2,13 +2,13 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1uqpt42" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
   <bpmn:collaboration id="Collaboration_1tyu924">
     <bpmn:documentation>Send information toUnderwriter</bpmn:documentation>
-    <bpmn:participant id="Participant_0b94270" processRef="Process_1crhg3c" />
+    <bpmn:participant id="Participant_0b94270" name="Personal Liability Insurance" processRef="Process_1crhg3c" />
     <bpmn:participant id="Participant_0kd835z" name="Customer" />
     <bpmn:messageFlow id="Flow_1ln7w2p" name="Formular data" sourceRef="Participant_0kd835z" targetRef="StartEvent_1" />
     <bpmn:messageFlow id="Flow_1iwsvg2" name="Offer" sourceRef="Activity_0e789n5" targetRef="Participant_0kd835z" />
     <bpmn:messageFlow id="Flow_1q2d52e" name="Contract confirmation" sourceRef="Participant_0kd835z" targetRef="Activity_12i4z16" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_1crhg3c" name="application_to_contract_upinsurance" isExecutable="true">
+  <bpmn:process id="Process_1crhg3c" name="Personal Liability Insurance" isExecutable="true">
     <bpmn:laneSet id="LaneSet_1cykm21">
       <bpmn:lane id="Lane_1x7j7el">
         <bpmn:flowNodeRef>CheckNameAddress</bpmn:flowNodeRef>
@@ -21,11 +21,11 @@
         <bpmn:flowNodeRef>Activity_0nw42io</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_12vw5is</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0e16k1z</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0gopwla</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_12z4vfs</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_01aff2m</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0wfxlax</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0gopwla</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:serviceTask id="CheckNameAddress" name="Check name and address">
@@ -237,10 +237,10 @@ url =
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1tyu924">
       <bpmndi:BPMNShape id="Participant_0b94270_di" bpmnElement="Participant_0b94270" isHorizontal="true">
-        <dc:Bounds x="160" y="210" width="1410" height="550" />
+        <dc:Bounds x="145" y="210" width="1425" height="550" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1x7j7el_di" bpmnElement="Lane_1x7j7el" isHorizontal="true">
-        <dc:Bounds x="190" y="210" width="1380" height="550" />
+        <dc:Bounds x="175" y="210" width="1395" height="550" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ewabn1_di" bpmnElement="Flow_1ewabn1">
         <di:waypoint x="820" y="332" />

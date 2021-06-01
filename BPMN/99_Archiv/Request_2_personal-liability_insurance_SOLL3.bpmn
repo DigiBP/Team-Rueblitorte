@@ -38,7 +38,6 @@
         <bpmn:flowNodeRef>Event_050vio1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_11jtses</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0lxpaox</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_02k6xum</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0atfa9a</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_033wgvw</bpmn:flowNodeRef>
@@ -167,7 +166,6 @@
       <bpmn:incoming>Flow_0te7vc1</bpmn:incoming>
       <bpmn:outgoing>Flow_1eppq96</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:task id="Activity_02k6xum" name="Test" />
     <bpmn:sequenceFlow id="Flow_0ewwqyz" sourceRef="StartEvent_1" targetRef="Gateway_033wgvw" />
     <bpmn:userTask id="Activity_0atfa9a" name="Correct data">
       <bpmn:incoming>Flow_0vx2a8y</bpmn:incoming>
@@ -427,9 +425,6 @@
       <bpmndi:BPMNShape id="Activity_0ykgmm4_di" bpmnElement="Activity_0gfmrk7">
         <dc:Bounds x="940" y="421" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_02k6xum_di" bpmnElement="Activity_02k6xum">
-        <dc:Bounds x="240" y="930" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0u0sn6k_di" bpmnElement="Activity_0atfa9a">
         <dc:Bounds x="400" y="421" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -438,6 +433,9 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="205" y="583" width="90" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_033wgvw_di" bpmnElement="Gateway_033wgvw" isMarkerVisible="true">
+        <dc:Bounds x="285" y="625" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_086wehf_di" bpmnElement="TextAnnotation_086wehf">
         <dc:Bounds x="490" y="920" width="99.99156545209178" height="79.6221322537112" />
@@ -453,9 +451,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1o8xfcd_di" bpmnElement="TextAnnotation_1o8xfcd">
         <dc:Bounds x="640" y="610" width="99.99156545209178" height="39.13630229419703" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_033wgvw_di" bpmnElement="Gateway_033wgvw" isMarkerVisible="true">
-        <dc:Bounds x="285" y="625" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0oz69c8_di" bpmnElement="Event_0lxpaox">
         <dc:Bounds x="1592" y="482" width="36" height="36" />
