@@ -74,7 +74,7 @@
           <text>"Yes"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1wx7eil">
-          <text>145.90</text>
+          <text>145</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0ezn2nb">
@@ -91,7 +91,7 @@
           <text>"No"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0ycnxyw">
-          <text>159.90</text>
+          <text>159</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1nip9pu">
