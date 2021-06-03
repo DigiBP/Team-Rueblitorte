@@ -22,10 +22,10 @@
         <bpmn:flowNodeRef>Event_12vw5is</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0e16k1z</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_12z4vfs</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_01aff2m</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0wfxlax</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0gopwla</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_12z4vfs</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:serviceTask id="CheckNameAddress" name="Check name and address">
@@ -204,11 +204,6 @@ url =
       <bpmn:outgoing>Flow_17amuiq</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0hof5sa" messageRef="Message_0hh0o77" />
     </bpmn:startEvent>
-    <bpmn:exclusiveGateway id="Gateway_12z4vfs">
-      <bpmn:incoming>Flow_0bkuyp7</bpmn:incoming>
-      <bpmn:incoming>Flow_1ylaig8</bpmn:incoming>
-      <bpmn:outgoing>Flow_1bhsn19</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:scriptTask id="Activity_01aff2m" name="Generate Business Key" scriptFormat="JavaScript" camunda:resultVariable="businessKey">
       <bpmn:incoming>Flow_17amuiq</bpmn:incoming>
       <bpmn:outgoing>Flow_1ylaig8</bpmn:outgoing>
@@ -228,6 +223,11 @@ url =
       <bpmn:incoming>Flow_1pzh3g4</bpmn:incoming>
       <bpmn:outgoing>Flow_0bkuyp7</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_12z4vfs">
+      <bpmn:incoming>Flow_0bkuyp7</bpmn:incoming>
+      <bpmn:incoming>Flow_1ylaig8</bpmn:incoming>
+      <bpmn:outgoing>Flow_1bhsn19</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
   </bpmn:process>
   <bpmn:message id="Message_0hh0o77" name="application_household" />
   <bpmn:message id="Message_07f650b" name="msgbusinesskey" />
@@ -282,13 +282,13 @@ url =
         <di:waypoint x="620" y="332" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1bhsn19_di" bpmnElement="Flow_1bhsn19">
-        <di:waypoint x="465" y="484" />
+        <di:waypoint x="485" y="484" />
         <di:waypoint x="520" y="484" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0bkuyp7_di" bpmnElement="Flow_0bkuyp7">
         <di:waypoint x="520" y="332" />
-        <di:waypoint x="440" y="332" />
-        <di:waypoint x="440" y="459" />
+        <di:waypoint x="460" y="332" />
+        <di:waypoint x="460" y="459" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0a4nw46_di" bpmnElement="Flow_0a4nw46">
         <di:waypoint x="1035" y="484" />
@@ -305,7 +305,7 @@ url =
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ylaig8_di" bpmnElement="Flow_1ylaig8">
         <di:waypoint x="390" y="484" />
-        <di:waypoint x="415" y="484" />
+        <di:waypoint x="435" y="484" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Activity_1iodfko_di" bpmnElement="CheckNameAddress">
         <dc:Bounds x="520" y="444" width="100" height="80" />
@@ -349,20 +349,20 @@ url =
           <dc:Bounds x="195" y="523" width="90" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_12z4vfs_di" bpmnElement="Gateway_12z4vfs" isMarkerVisible="true">
-        <dc:Bounds x="415" y="459" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_039c6h1_di" bpmnElement="Activity_01aff2m">
         <dc:Bounds x="290" y="444" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_12g8ogf_di" bpmnElement="Activity_0wfxlax">
         <dc:Bounds x="520" y="292" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_12z4vfs_di" bpmnElement="Gateway_12z4vfs" isMarkerVisible="true">
+        <dc:Bounds x="435" y="459" width="50" height="50" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1hv9r3m_di" bpmnElement="Event_0gopwla">
         <dc:Bounds x="1282" y="506" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1qze06k_di" bpmnElement="Participant_0kd835z" isHorizontal="true">
-        <dc:Bounds x="160" y="80" width="1410" height="70" />
+        <dc:Bounds x="145" y="80" width="1425" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ln7w2p_di" bpmnElement="Flow_1ln7w2p">
         <di:waypoint x="230" y="150" />
