@@ -174,7 +174,7 @@ url =
     <bpmn:boundaryEvent id="Event_0gopwla" attachedToRef="Activity_12i4z16">
       <bpmn:outgoing>Flow_13rli42</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_11dxu12">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT10D</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_1ylaig8" sourceRef="Activity_01aff2m" targetRef="Gateway_12z4vfs" />
