@@ -26,7 +26,7 @@
         <bpmn:flowNodeRef>Event_0gopwla</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_16fd9wc" />
       </bpmn:lane>
-      <bpmn:lane id="Lane_017k67c" name="Clerk">
+      <bpmn:lane id="Lane_017k67c" name="User (Clerk)">
         <bpmn:flowNodeRef>Activity_0wfxlax</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_031r57g</bpmn:flowNodeRef>
       </bpmn:lane>
