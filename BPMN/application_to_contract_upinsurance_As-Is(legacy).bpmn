@@ -2,7 +2,7 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1uqpt42" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
   <bpmn:collaboration id="Collaboration_1tyu924">
     <bpmn:documentation>Send information toUnderwriter</bpmn:documentation>
-    <bpmn:participant id="Participant_0b94270" name="Personal Liability Insurance" processRef="Process_1crhg3c" />
+    <bpmn:participant id="Participant_0b94270" name="Private Liability Insurance" processRef="Process_1crhg3c" />
     <bpmn:participant id="Participant_0kd835z" name="Customer" processRef="Process_12zzpyh" />
     <bpmn:messageFlow id="Flow_1ln7w2p" name="Phone call" sourceRef="Participant_0kd835z" targetRef="StartEvent_1" />
     <bpmn:messageFlow id="Flow_1tzav9u" name="offer" sourceRef="Activity_1g6co4v" targetRef="Participant_0kd835z" />
@@ -256,21 +256,21 @@
         <di:waypoint x="790" y="550" />
         <di:waypoint x="790" y="240" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="795" y="323" width="22" height="14" />
+          <dc:Bounds x="795" y="313" width="22" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0v9jw06_di" bpmnElement="Flow_0v9jw06">
         <di:waypoint x="1370" y="550" />
         <di:waypoint x="1370" y="240" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1380" y="326" width="40" height="14" />
+          <dc:Bounds x="1374" y="313" width="40" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1suv4xu_di" bpmnElement="Flow_1suv4xu">
         <di:waypoint x="950" y="240" />
         <di:waypoint x="950" y="550" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="961" y="321" width="58" height="14" />
+          <dc:Bounds x="954" y="313" width="58" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0yzoa3w_di" bpmnElement="Flow_0yzoa3w">
